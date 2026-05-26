@@ -9,8 +9,6 @@ on:
       - 'imgs/'
   schedule:
     - cron: '0 4,10 * * *'
-  watch:
-    types: started
 
 jobs:
   build:
