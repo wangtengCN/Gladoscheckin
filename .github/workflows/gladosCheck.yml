@@ -15,10 +15,6 @@ jobs:
     name: glados/railgun checkin
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      actions: write
-
     strategy:
       matrix:
         python-version: [3.13]
