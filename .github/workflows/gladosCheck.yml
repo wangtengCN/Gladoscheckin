@@ -49,7 +49,7 @@ jobs:
         GLADOS_VERBOSE: ${{ secrets.GLADOS_VERBOSE }}
 
     - name: keep alive
-      uses: liskin/gh-workflow-keepalive@v1 # using the workflow with default settings
+      uses: gautamkrishnar/keepalive-workflow@v2
       
     - name: delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
