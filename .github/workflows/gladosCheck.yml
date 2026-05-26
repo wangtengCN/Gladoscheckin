@@ -6,25 +6,27 @@ on:
     branches: [ main ]
     paths-ignore:
       - 'README.md'
-      - 'imgs/'
+      - 'imgs/**'
   schedule:
     - cron: '0 4,10 * * *'
-  watch:
-    types: started
 
 jobs:
   build:
-    name: glados checkin
+    name: glados/railgun checkin
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      actions: write
+
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: [3.13]
 
     steps:
-    - uses: actions/checkout@v4
-
+    - uses: actions/checkout@v6
     - name: set up python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -44,9 +46,10 @@ jobs:
         PUSHDEER_SENDKEY: ${{ secrets.PUSHDEER_SENDKEY }}
         GLADOS_COOKIES: ${{ secrets.GLADOS_COOKIES }}
         GLADOS_EXCHANGE_PLAN: ${{ secrets.GLADOS_EXCHANGE_PLAN }}
+        GLADOS_VERBOSE: ${{ secrets.GLADOS_VERBOSE }}
 
     - name: keep alive
-      uses: liskin/gh-workflow-keepalive@v1 # using the workflow with default settings
+      uses: liskin/gh-workflow-keepalive@v1
       
     - name: delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
@@ -54,6 +57,6 @@ jobs:
         token: ${{ github.token }}
         repository: ${{ github.repository }}
         retain_days: 7
-        keep_minimum_runs: 10
+        keep_minimum_runs: 7
         delete_run_by_conclusion_pattern: success
  
