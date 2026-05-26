@@ -6,7 +6,7 @@ on:
     branches: [ main ]
     paths-ignore:
       - 'README.md'
-      - 'imgs/**'
+      - 'imgs/'
   schedule:
     - cron: '0 4,10 * * *'
 
@@ -14,7 +14,6 @@ jobs:
   build:
     name: glados/railgun checkin
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         python-version: [3.13]
@@ -45,7 +44,7 @@ jobs:
         GLADOS_VERBOSE: ${{ secrets.GLADOS_VERBOSE }}
 
     - name: keep alive
-      uses: gautamkrishnar/keepalive-workflow@v2
+      uses: liskin/gh-workflow-keepalive@v1
       
     - name: delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
